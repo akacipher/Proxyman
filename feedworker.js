@@ -20,7 +20,6 @@ const STATUS_NEW_FEED = 2
  */
 
 function feedWorkerInit (serverConnector, FEED_DB, webSocket) {
-  console.log(webSocket);
   setInterval (() => {
     serverConnector.serverLoadNews (() => {}, (feedChunk) => {
       if (feedChunk.length > 0) {
