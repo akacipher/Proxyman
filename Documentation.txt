@@ -1,0 +1,56 @@
+####################
+#                  #
+#   DOKUMENTACJA   #
+#                  #
+####################
+
+1) Ujednoznacznienie
+2) Objaśnienie działania
+
+####################
+
+1)
+
+ProxyLisy = Nazwa aplikacji/serwera.
+LisyUI = pliki .js, .html, .css, .svg i podobne.
+Token = Ciasteczko PHPa - ID sesji - PHPSESSID.
+Client = Przeglądarka która łączy się z Proxymen.
+Proxymen = Serwer który obsługuje klientów (to ten uruchamiany na node.js).
+Server = Głowny serwer który ma dostęp do bazy danych, Proxymen łączy się z nim.
+WebSocket = Gniazdo które umożliwia stałą komunikację z Client.
+ExpressJS = Serwer który serwuje LisyUI.
+FeedWorker = Kontaktuje się z Server-em regularnie i pobiera nowe Feed-y.
+SocketWorker = Pinguje wszystkich Client-ów mających WebSocket i wyrzuca nieaktywnych.
+Feed = Post.
+
+2)
+
+W punktach po kolei co się dzieje:
+
+* Proxymen uruchamia się komendą "npm start"
+* Proxymen prubuje nawiązać połączenie z Server-em aby aktywować Token, w odpowiedzi otrzyma
+7 pierwszych Feed-ów, Proxymen przechowa te Feed-y w pamięci.
+* Proxymen aktywuje ExpressJS.
+* Proxymen aktywuje FeedWorker.
+* Proxymen aktywuje WebSocket.
+* Proxymen zaczyna nasłuch na porcie (WebSocket i ExpressJS działają na tym samym porcie).
+
+Gdy Client prubuje się połączyć:
+
+* Proxymen sprawdza czy Client ma ciasteczko o nazwie Token.
+* Jeżeli Client nie ma ciasteczka Token to Proxymen wysyła mu zawartość pliku "login.html".
+* Jeżeli Client ma ciasteczko Token to Proxymen wyśle ten Token do Server-a aby go uwierzytelnić.
+* Jeżeli Token nie został uwierzytelniony to Proxymen wysyła do Client zawartość pliku "login.html".
+* Jeżeli Token został uwierzytelniony to Proxymen wysyła do Client zawartość pliku "index.html".
+
+Gdy Client otrzyma zawartość pliku "index.html":
+
+* Client nawiązuje stałe połączenie z Proxymen za pomocą WebSocket.
+* Proxymen pobiera Token od Client-a WebSocket i próbuje go uwierzytelnić.
+* Jeżeli uwierzytelnienie się nie udało to Proxyman zerwie połączenie WebSocket z Client.
+
+Jeżeli uda się go uwierzytelnić:
+
+* Client prosi i kilka Feed-ów (od Feed-a o indexie 0 do Feed-a o indexie 7).
+* Proxymen wysyła te Feed-y za pomocą WebSocket.
+* Jeżeli FeedWorker otrzyma nowe Feed-y to automatycznie wyśle je do Client poprzez WebSocket.
