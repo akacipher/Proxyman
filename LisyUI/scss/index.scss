@@ -1,0 +1,97 @@
+@import 'master';
+
+header {
+  #list-user-bar-wrapper {
+    flex-direction: row-reverse;
+    display: flex;
+    flex-grow: 1;
+    #lisy-welcome-user-text {
+      font-family: 'Vibur', cursive;
+      color: $primary-color-text;
+      margin-left: 20px;
+      font-size: 24px;
+    }
+  }
+}
+
+#feed-container {
+  box-shadow: 0 2px 5px rgba(0,0,0,.26);
+  border: 6px $primary-color-dark solid;
+  width: calc(100% / 2 - 120px);
+  height: calc(100vh - 156px);
+  margin: 50px 100px 0 0;
+  border-radius: 15px;
+  align-self: center;
+  overflow: hidden;
+  overflow-y: scroll;
+  float: right;
+  box-sizing: border-box;
+  padding-left: 10px;
+  
+  &::-webkit-scrollbar {
+    border-radius: 8px;
+  	width: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+    background-color: $primary-color-dark;	
+    border-radius: 8px;
+  }
+  
+  .feed {
+    border-bottom: 2px solid (gray + #444);
+    display: flex;
+    padding: 20px 20px 20px 10px;
+    
+    .feed-votebar {
+      padding-right: 20px;
+      flex-shrink: 0;
+      
+      .feed-votebar-button {
+        background-color: #aaaab8;
+        border-radius: 16px;
+        text-align: center;
+        line-height: 32px;
+        margin-bottom: 22px;
+        color: white;
+        height: 32px;
+        width: 32px;
+      }
+      
+    }
+    .feed-content {
+      width: 100%;
+      .feed-authorbar {
+        display: flex;
+        height: 60px;
+        width: 100%;
+        margin-bottom: 10px;
+        
+        img {
+          height: 60px;
+          width: 60px;
+        }
+        
+        .feed-authorbar-name {
+          color: $primary-text-color;
+          padding: 5px 20px;
+          font-weight: bold;
+          flex-grow: 1;
+        }
+        
+        .feed-authorbar-date {
+          color: $primary-text-color;
+          padding: 5px 20px;
+          font-weight: bold;
+        }
+        
+      }
+    }
+  }
+}
+
+
+
+
+

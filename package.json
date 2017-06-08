@@ -1,0 +1,23 @@
+{
+  "name": "proxyman",
+  "version": "1.0.0",
+  "description": "Proxy/RedUI strony TOMODACHI KITSUNE",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Proxy",
+    "redUI"
+  ],
+  "author": "Samuel Boczek",
+  "license": "GPL3",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "jquery": "^3.2.1",
+    "jsdom": "^11.0.0",
+    "ws": "^3.0.0"
+  }
+}

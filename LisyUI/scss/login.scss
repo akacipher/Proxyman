@@ -1,0 +1,62 @@
+@import 'master';
+
+header {
+  #lisy-login-form-wrapper {
+    flex-direction: row-reverse;
+    display: flex;
+    flex-grow: 1;
+    
+    #lisy-login-form {
+      input {
+        border-radius: 3px;
+        padding: 5px;
+        border: 0;
+        
+        &[type="submit"] {
+          background-color: $primary-color-light;
+          padding: 5px 10px;
+          margin-left: 5px;
+          &:hover {
+            background-color: $primary-color-light - #111111;
+          }
+          &:active, &:focus {
+            background-color: $primary-color-light - #222222;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+#body-wrapper {
+  display: flex;
+  height: calc(100vh - 56px);
+  width: 100%;
+  align-items: stretch;
+  & div {
+    justify-content: center;
+    display: flex;
+    width: 50%;
+    padding: 60px 0;
+    
+    #important-note {
+      background-image: url('/img/sticky-note.svg');
+      background-size: cover;
+      box-sizing: border-box;
+      padding: 70px 100px;
+      height: 310px;
+      width: 350px;
+      
+      & > div {
+        font-family: 'Indie Flower', cursive;
+        transform: rotate(-2deg);
+        font-weight: bold;
+        font-size: 23px;
+        height: 100%;
+        width: 100%;
+        padding: 0;
+      }
+    }
+  }
+}
