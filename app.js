@@ -1,5 +1,5 @@
 /*!
- * cookie-parser
+ * app.js
  * Copyright(c) 2017 Samuel Boczek
  * GPL3 Licensed
  */
@@ -35,7 +35,7 @@ app.use (cookieParser())
 app.post ('/login.ajax', (request, response) => {             // Client wysłał prośbę o zalogowanie z email-em i hasłem
   let body = '';
   request.on ('data', (chunk) => {body += chunk})
-  request.on ('end', (chunk) => {
+  request.on ('end', () => {
     if (body.length == 0) {           // Error? Nagłe zerwanie połączenia?
       response.send(JSON.stringify({
         status: 0

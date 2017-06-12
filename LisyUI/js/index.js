@@ -3,7 +3,8 @@ $(document).ready(function (){
   const STATUS_PING                   = 0
   const STATUS_REQUEST_FEED           = 1
   const STATUS_NEW_FEED               = 2
-  const STATUS_INTERNAL_SERVER_ERROR  = 3
+  const STATUS_CREATE_FEED            = 3
+  const STATUS_INTERNAL_SERVER_ERROR  = 4
   
   var lastFeedIndex = 0
   var waitingForAnswer = false
@@ -75,7 +76,22 @@ $(document).ready(function (){
       lastFeedIndex += data.feed.length
     }
     
+    if (data.status == STATUS_CREATE_FEED) {
+      $('#feed-feeder > textarea')
+      .animate({'margin-left': '100%'}, 400, function(){
+        $('#feed-feeder > textarea').val('')
+      })
+      .animate({'margin-left': '0px'})
+    }
+    
   }
+  
+  $('#feeder-button').on('click', function () {
+    feedSocket.send (JSON.stringify({
+      status: STATUS_CREATE_FEED,
+      content: $('#feed-feeder > textarea').val()
+    }))
+  })
   
   // Ładuj Feed-y jak przewijasz stronę
   $('#feed-container').scroll(function() {

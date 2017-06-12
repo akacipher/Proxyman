@@ -1,5 +1,5 @@
 /*!
- * cookie-parser
+ * websocket.js
  * Copyright(c) 2017 Samuel Boczek
  * GPL3 Licensed
  */
@@ -16,7 +16,8 @@ var FEED_DB           = null
 const STATUS_PING                   = 0
 const STATUS_REQUEST_FEED           = 1
 const STATUS_NEW_FEED               = 2
-const STATUS_INTERNAL_SERVER_ERROR  = 3
+const STATUS_CREATE_FEED            = 3
+const STATUS_INTERNAL_SERVER_ERROR  = 4
 
 /**
  * Aktywuje gniazdo WebSocket dla Proxymen-a
@@ -54,6 +55,7 @@ function websocketConnection (socket, request) {
       socket.send (JSON.stringify({status: STATUS_INTERNAL_SERVER_ERROR}))
     }, (success) => {
       if (success === true) {
+        socket.AuthID = request.cookies.AuthID
         websocketMessage (socket)
       } else {
         socket.terminate ()
@@ -100,6 +102,12 @@ function websocketMessage (socket) {
             }))
           })
         }
+      }
+      
+      if (data.status == STATUS_CREATE_FEED) {
+        serverConnector.serverSendFeed (data.content, socket.AuthID, () => {}, () => {
+          socket.send (JSON.stringify({status: STATUS_CREATE_FEED}))
+        })
       }
       
     } catch (e) {}

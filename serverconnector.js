@@ -1,5 +1,5 @@
 /*!
- * cookie-parser
+ * serverconnector.js
  * Copyright(c) 2017 Samuel Boczek
  * GPL3 Licensed
  */
@@ -14,7 +14,8 @@ const SERVER_CONNECTOR = {
   serverLoadNews: serverLoadNews,
   serverLoadFeedsUntil: serverLoadFeedsUntil,
   serverAuthenticateToken: serverAuthenticateToken,
-  serverAuthenticateUser: serverAuthenticateUser
+  serverAuthenticateUser: serverAuthenticateUser,
+  serverSendFeed: serverSendFeed
 }
 
 var PROXYMEN_TOKEN     = null;
@@ -237,3 +238,36 @@ function serverAuthenticateUser (email, password, error, success) {
     }
   }).end (REQUEST_BODY)
 }
+
+/**
+ * Wysyłam POST-em zawartość Feed-a do /php/post_loader/post_write.php
+ *
+ * @param {String} [email]
+ * @param {String} [password]
+ * @param {Function} [error]
+ * @param {Function} [success]
+ * @public
+ */
+
+function serverSendFeed (content, token, error, success) {
+  const REQUEST_BODY = 'comment=' + content + '&persona=0'
+  let options = {
+    hostname: SERVER_ADDRESS,
+    path: '/php/post_loader/post_write.php',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': REQUEST_BODY.length,
+      'Cookie': 'PHPSESSID=' + token
+    }
+  }
+  
+  http.request (options, (response) => {
+    success()
+  }).end (REQUEST_BODY)
+}
+
+
+
+
+

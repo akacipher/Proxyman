@@ -1,5 +1,5 @@
 /*!
- * cookie-parser
+ * feedworker.js
  * Copyright(c) 2017 Samuel Boczek
  * GPL3 Licensed
  */

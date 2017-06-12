@@ -21,7 +21,6 @@ header {
   height: calc(100vh - 156px);
   margin: 50px 100px 0 0;
   border-radius: 15px;
-  align-self: center;
   overflow: hidden;
   overflow-y: scroll;
   float: right;
@@ -91,7 +90,50 @@ header {
   }
 }
 
-
-
-
+#feed-feeder {
+  box-shadow: 0 2px 5px rgba(0,0,0,.26);
+  border: 6px $primary-color-dark solid;
+  width: calc(100% / 2 - 120px);
+  box-sizing: border-box;
+  margin: 50px 0 0 100px;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 250px;
+  float: left;
+  
+  display: flex;
+  flex-direction: column;
+  
+  textarea {
+    box-sizing: border-box;
+    font-size: 20px;
+    resize: none;
+    flex-grow: 1;
+    padding: 5px;
+    width: 100%;
+    outline: 0;
+    border: 0;
+  }
+  
+  #feeder-button {
+    background-color: $primary-color;
+    height: 50px;
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    
+    user-select: none;
+    cursor: pointer;
+    
+    &:active {
+      background-color: $primary-color + #111;
+    }
+  }
+  
+}
 
